@@ -3,13 +3,14 @@ from mycroft import MycroftSkill, intent_handler
 from mycroft.audio import wait_while_speaking
 from mycroft.util import play_wav, play_mp3, play_ogg
 from os.path import dirname, join, realpath
+from time import sleep
 
 
 class TestAudioOutput(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
         self.audio_dir = dirname(realpath(__file__))
-
+    
     @intent_handler(IntentBuilder('wav.output.test').require('wav')
                     .require('test').require('output'))
     def handle_wav_output_test(self, message):
@@ -31,6 +32,15 @@ class TestAudioOutput(MycroftSkill):
         wait_while_speaking()
         play_ogg(join(self.audio_dir, 'audio_test.ogg'))
 
+    @intent_handler(IntentBuilder('wav.output.test').require('all')
+                    .require('test').require('output'))
+    def handle_all_output_test(self, message):
+        self.handle_wav_output_test(message)
+        sleep(6)
+        self.handle_mp3_output_test(message)
+        sleep(6)
+        self.handle_ogg_output_test(message)
+            
 
 def create_skill():
     return TestAudioOutput()

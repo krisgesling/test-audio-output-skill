@@ -8,6 +8,7 @@ This Skill plays short clips of different audio formats to test output devices.
 * "test wav output"
 * "test mp3 output"
 * "test ogg output"
+* "test all output"
 
 ## Credits
 krisgesling
